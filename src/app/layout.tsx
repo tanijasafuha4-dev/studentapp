@@ -9,6 +9,7 @@ import { CookieBanner } from "@/components/cookie-banner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://studentapp.tanijasafuha4.workers.dev"),
   title: "Studentapp",
   description: "Behalte deinen Schulalltag im Griff mit der Studentapp.",
   manifest: "./manifest.json",
