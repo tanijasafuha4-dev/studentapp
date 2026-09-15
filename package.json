@@ -3,12 +3,18 @@
   "version": "1.0.0",
   "author": "Johannes Schießl",
   "private": true,
+
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
+
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
     "@hookform/resolvers": "^3.9.1",
@@ -54,14 +60,17 @@
     "vaul": "^1.1.1",
     "zod": "^3.23.8"
   },
+
   "devDependencies": {
     "@opennextjs/cloudflare": "latest",
+    "wrangler": "latest",
+
     "@types/minimatch": "latest",
-    "eslint": "^8",
     "@types/canvas-confetti": "^1.6.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+
     "eslint": "^8",
     "eslint-config-next": "14.2.8",
     "postcss": "^8",
