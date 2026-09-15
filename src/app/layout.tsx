@@ -5,7 +5,6 @@ import { LanguageProvider } from "@/contexts/language-context";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieBanner } from "@/components/cookie-banner";
-export const runtime = 'edge';
 
 const inter = Inter({ subsets: ["latin"] });
 
