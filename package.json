@@ -55,6 +55,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "latest",
     "@types/minimatch": "latest",
     "eslint": "^8",
     "@types/canvas-confetti": "^1.6.4",
