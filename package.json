@@ -55,9 +55,8 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-  "@types/minimatch": "latest",
-  "eslint": "^8",
-  // 下面是原有的其他依赖...
+    "@types/minimatch": "latest",
+    "eslint": "^8",
     "@types/canvas-confetti": "^1.6.4",
     "@types/node": "^20",
     "@types/react": "^18",
