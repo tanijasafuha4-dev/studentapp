@@ -10,6 +10,7 @@ const withPWA = nextPWA({
 
 const nextConfig = {
   images: {
+    unoptimized: true,
     domains: ["api.qrserver.com", "ygokgtgl7r.ufs.sh"],
   },
   eslint: {
