@@ -1,5 +1,8 @@
-import defaultTheme from "@opennextjs/cloudflare";
-
 export default {
-  default: defaultTheme,
+  default: {
+    override: {
+      wrapper: "cloudflare-node",
+      converter: "edge",
+    },
+  },
 };
