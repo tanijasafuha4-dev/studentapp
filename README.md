@@ -65,7 +65,7 @@ Yes, we support the vacation calendars of all German federal states and Austria,
 
 ### Can I use the app on multiple devices?
 
-Yes, you can log in to your account on different devices and have access to your data everywhere.
+Yes, you can log in to your account on different devices and have access to your data everywhere!
 
 ### Is there a mobile app?
 
