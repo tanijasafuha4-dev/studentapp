@@ -56,24 +56,36 @@ const loginSchema = z.object({
 
 export type LoginFormData = z.infer<typeof loginSchema>;
 
-export async function handleEmailLogin(formData: LoginFormData) {
+// 请将此函数添加到你的 Server Actions 文件中
+export async function handleEmailSignUp(formData: LoginFormData) {
+  headers();
   const supabase = createClient();
+  // 依然硬编码反代域名，确保邮件里的验证链接能准确跳回国内直连地址
+  const BASE_URL = "https://my-nankai-timetable.ccwu.cc";
 
   const result = loginSchema.safeParse(formData);
   if (!result.success) {
     return { error: result.error.message };
   }
 
-  const { data, error } = await supabase.auth.signInWithPassword({
+  // 调用 signUp 接口，Supabase 会自动向目标邮箱发送包含 Token 的验证链接
+  const { data, error } = await supabase.auth.signUp({
     email: formData.email,
     password: formData.password,
+    options: {
+      // 验证成功后强制重定向回我们的兑换路由
+      emailRedirectTo: `${BASE_URL}/auth/callback`,
+    },
   });
-
-  console.log(data);
 
   if (error) {
     return { error: error.message };
   }
 
-  redirect("/home");
+  // 检查是否因为之前已存在同名账号但未验证，导致需要重新发送
+  if (data?.user?.identities?.length === 0) {
+    return { error: "该邮箱已被注册。如果未收到邮件，请检查垃圾邮件箱。" };
+  }
+
+  return { success: "验证邮件已发送，请前往你的南开邮箱查收并点击验证链接！" };
 }
