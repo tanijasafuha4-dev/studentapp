@@ -52,13 +52,13 @@ export default async function LoginPage() {
         </form>
 
         <footer className="fixed bottom-5 w-64 text-center text-sm text-neutral-600">
-          Mit der Anmeldung stimmen Sie unseren{" "}
+          By registering, you agree to our{" "}
           <Link className="underline" href="/terms">
-            Nutzungsbedingungen
+            Terms of Use
           </Link>{" "}
           und{" "}
           <Link className="underline" href="/privacy">
-            Datenschutzerklärung
+            Privacy Policy
           </Link>{" "}
           zu.
         </footer>
