@@ -1,30 +1,33 @@
 import { NextResponse } from "next/server";
-// The client you created from the Server-Side Auth instructions
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  // if "next" is in param, use it as the redirect URL
-  const next = searchParams.get("next") ?? "/";
+  // 默认验证成功后跳回主页 /home
+  const next = searchParams.get("next") ?? "/home";
+
+  // 提取原作者的域名解析逻辑，确保在 Cloudflare 代理下也能获取准确的公网域名
+  const forwardedHost = request.headers.get("x-forwarded-host");
+  const isLocalEnv = process.env.NODE_ENV === "development";
+  const baseUrl = (isLocalEnv || !forwardedHost) ? origin : `https://${forwardedHost}`;
 
   if (code) {
     const supabase = createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
+    
     if (!error) {
-      const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
-      const isLocalEnv = process.env.NODE_ENV === "development";
-      if (isLocalEnv) {
-        // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
-        return NextResponse.redirect(`${origin}${next}`);
-      } else if (forwardedHost) {
-        return NextResponse.redirect(`https://${forwardedHost}${next}`);
-      } else {
-        return NextResponse.redirect(`${origin}${next}`);
-      }
+      // 验证成功，平滑放行
+      return NextResponse.redirect(`${baseUrl}${next}`);
     }
+    
+    // 核心修复：拦截跨浏览器导致 PKCE 失效的报错，拒绝跳转不存在的 404 页面
+    console.error("Auth callback error:", error.message);
+    return NextResponse.redirect(
+      `${baseUrl}/login?error=${encodeURIComponent("验证失败：为了保障安全，请务必在刚刚发起注册的同一个浏览器窗口中复制并打开此链接。")}`
+    );
   }
 
-  // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`);
+  // 兜底处理：缺少验证码时直接打回登录页
+  return NextResponse.redirect(`${baseUrl}/login`);
 }
