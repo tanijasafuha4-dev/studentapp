@@ -5,23 +5,22 @@ export interface SubjectPreset {
 }
 
 export const SUBJECT_PRESETS: SubjectPreset[] = [
-  { name: "Deutsch", icon: "Book", color: "red" },
-  { name: "Englisch", icon: "Coffee", color: "green" },
-  { name: "Mathe", icon: "Calculator", color: "blue" },
-  { name: "Latein", icon: "Scroll", color: "orange" },
-  { name: "Französisch", icon: "Scroll", color: "sky" },
-  { name: "Physik", icon: "Atom", color: "sky" },
-  { name: "Chemie", icon: "FlaskConical", color: "slate" },
-  { name: "Biologie", icon: "Leaf", color: "lime" },
-  { name: "Geschichte", icon: "Hourglass", color: "emerald" },
-  { name: "Geographie", icon: "Earth", color: "teal" },
-  { name: "Politik & Gesellschaft", icon: "Scale", color: "cyan" },
-  { name: "Wirtschaft & Recht", icon: "Briefcase", color: "indigo" },
-  { name: "Informatik", icon: "Terminal", color: "yellow" },
-  { name: "Kunst", icon: "Palette", color: "slate" },
-  { name: "Musik", icon: "Music", color: "violet" },
-  { name: "Sport", icon: "Dumbbell", color: "red" },
-  { name: "Ethik", icon: "Scale", color: "amber" },
-  { name: "Religion", icon: "Church", color: "orange" },
-  { name: "BWR", icon: "Briefcase", color: "indigo" },
+  // Core & Major Subjects
+  { name: "Chemistry", icon: "FlaskConical", color: "sky" },
+  { name: "Physics", icon: "Atom", color: "blue" },
+  { name: "Mathematics", icon: "Calculator", color: "indigo" },
+  { name: "English", icon: "Coffee", color: "amber" },
+  { name: "Chinese Language", icon: "Book", color: "orange" },
+  { name: "Physical Education", icon: "Dumbbell", color: "rose" },
+  { name: "Psychology", icon: "Leaf", color: "lime" },
+  { name: "Politics", icon: "Scale", color: "red" },
+  { name: "Military Training", icon: "Hourglass", color: "slate" },
+
+  // General Elective Modules
+  { name: "Art Aesthetics & Cultural Reflection", icon: "Palette", color: "pink" },
+  { name: "World Civilizations & Global Vision", icon: "Earth", color: "teal" },
+  { name: "Gongneng Quality & Serving China", icon: "Scroll", color: "purple" },
+  { name: "Engineering Literacy & Future Technology", icon: "Terminal", color: "cyan" },
+  { name: "Social Development & National Governance", icon: "Briefcase", color: "yellow" },
+  { name: "Scientific Spirit & Healthy Living", icon: "Check", color: "green" },
 ];
