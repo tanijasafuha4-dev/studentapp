@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-import DeleteYearButton from "@/components/years/delete-year-button";
 import PageLoader from "@/components/shared/page-loader";
 import { redirect } from "next/navigation";
 import {
