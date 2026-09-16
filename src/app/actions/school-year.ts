@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { SchoolYear, TimeTable, SchoolYearSettings } from "@/types/school-year";
 import { addExamType, addExamTypeGroup } from "./exams";
@@ -83,7 +84,7 @@ export async function setCurrentSchoolYearId(id: number) {
 
 export async function createSchoolYear(
   data: Partial<SchoolYear>,
-): Promise<SchoolYear> {
+) {
   const supabase = createClient();
 
   const {
@@ -104,8 +105,8 @@ export async function createSchoolYear(
   const newSchoolYear = {
     ...data,
     user_id: user.id,
-    grading_system: data.grading_system || "de_full_grades",
-    vacation_region: data.vacation_region || "de_bavaria",
+    grading_system: data.grading_system || "nankai_100_point",
+    vacation_region: data.vacation_region || "autumn",
     timetable: data.timetable || {
       monday: [],
       tuesday: [],
@@ -132,59 +133,49 @@ export async function createSchoolYear(
 
   await setCurrentSchoolYearId(schoolYear.id);
 
-  const writtenGroup = await addExamTypeGroup({
-    name: "Schriftlich",
+  // 定制南开大学化学系考核分类（大一专属）
+  const examGroup = await addExamTypeGroup({
+    name: "考试成绩",
+    weight: 6, // 占总评 60%
+  });
+
+  const dailyGroup = await addExamTypeGroup({
+    name: "平时成绩",
+    weight: 4, // 占总评 40%
+  });
+
+  await addExamType({
+    name: "期末考试",
+    group_id: examGroup[0].id,
     weight: 2,
   });
 
-  const oralGroup = await addExamTypeGroup({
-    name: "Mündlich",
+  await addExamType({
+    name: "期中考试",
+    group_id: examGroup[0].id,
     weight: 1,
   });
 
   await addExamType({
-    name: "Schulaufgabe",
-    group_id: writtenGroup[0].id,
+    name: "实验报告", // 适合化学基础实验课
+    group_id: dailyGroup[0].id,
+    weight: 2,
+  });
+
+  await addExamType({
+    name: "随堂测验",
+    group_id: dailyGroup[0].id,
     weight: 1,
   });
 
   await addExamType({
-    name: "Stegreifaufgabe",
-    group_id: oralGroup[0].id,
+    name: "课堂考勤",
+    group_id: dailyGroup[0].id,
     weight: 1,
   });
 
-  await addExamType({
-    name: "Abfrage",
-    group_id: oralGroup[0].id,
-    weight: 1,
-  });
-
-  await addExamType({
-    name: "Mündliche Mitarbeit",
-    group_id: oralGroup[0].id,
-    weight: 1,
-  });
-
-  await addExamType({
-    name: "Referat",
-    group_id: oralGroup[0].id,
-    weight: 1,
-  });
-
-  await addExamType({
-    name: "Kurzarbeit",
-    group_id: oralGroup[0].id,
-    weight: 1,
-  });
-
-  await addExamType({
-    name: "Vokabeltest",
-    group_id: oralGroup[0].id,
-    weight: 1,
-  });
-
-  return schoolYear as SchoolYear;
+  // 服务端强制跳转回仪表盘主页
+  redirect("/home");
 }
 
 export async function getAllSchoolYears(): Promise<SchoolYear[]> {
@@ -243,4 +234,27 @@ export async function updateSchoolYearSettings(
   }
 
   revalidatePath("/subjects/[id]", "page");
+}
+
+// 新增功能：删除选定的历史学年
+export async function deleteSchoolYear(id: number): Promise<void> {
+  const supabase = createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("Not authenticated");
+
+  const { error } = await supabase
+    .from("school_years")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", user.id);
+
+  if (error) {
+    console.error("Error deleting school year:", error);
+    throw error;
+  }
+
+  revalidatePath("/years");
 }
