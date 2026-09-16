@@ -33,7 +33,7 @@ export default async function LoginPage() {
           <div className="text-center">
             <h1 className="text-2xl font-bold tracking-tight">欢迎登录</h1>
             <p className="text-sm text-muted-foreground mt-2">
-              使用南开邮箱或第三方账号进入系统
+              使用邮箱或第三方账号进入系统
             </p>
           </div>
 
