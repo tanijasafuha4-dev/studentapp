@@ -18,6 +18,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
 export default function LandingPage() {
   return (
     <div className="mx-auto flex min-h-screen w-full flex-col">
@@ -41,27 +42,26 @@ function HeroSection() {
       <div className="mx-auto max-w-5xl space-y-12 px-6 py-24">
         <div className="space-y-8 text-center">
           <Badge className="bg-indigo-100 text-sm text-indigo-500 hover:bg-indigo-100 hover:text-indigo-500">
-            Jetzt verfügbar!
+            Now Available!
           </Badge>
 
           <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-            Deine Schulzeit, <span className="text-indigo-500">perfekt</span>{" "}
-            organisiert
+            Your studies, <span className="text-indigo-500">perfectly</span>{" "}
+            organized
           </h1>
 
           <h2 className="mx-auto max-w-2xl text-xl text-muted-foreground">
-            Plane deinen Stundenplan, tracke deine Noten und vergiss nie wieder
-            eine Prüfung oder Hausaufgabe - alles in einer App.
+            Plan your schedule, track your grades, and never forget an exam or assignment again - everything in one app.
           </h2>
 
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Button size="lg" asChild>
-              <Link href="/login">Jetzt kostenlos starten</Link>
+              <Link href="/login">Get started for free</Link>
             </Button>
             <Button size="lg" variant="outline" className="hidden">
               {" "}
               {/* HIDDEN UNTIL WE HAVE A DEMO */}
-              Demo ansehen
+              View demo
             </Button>
           </div>
         </div>
@@ -70,7 +70,7 @@ function HeroSection() {
           <div className="relative aspect-[4/3] w-full">
             <Image
               src="https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5fvVgYVJ7YXwUdxpIk90Ka8oNFGW2Dj5hArBV"
-              alt="Studentapp auf iPhone und iPad"
+              alt="Studentapp on iPhone and iPad"
               fill
               className="object-cover"
               priority
@@ -85,30 +85,30 @@ function HeroSection() {
 function FeaturesSection() {
   const features = [
     {
-      title: "Fächer",
+      title: "Subjects",
       description:
-        "Organisiere deine Fächer übersichtlich, damit du alles Wichtige immer griffbereit hast.",
+        "Organize your subjects clearly so you always have everything important at your fingertips.",
       image:
         "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S505vMY1G2IlcvhrjQdFX0UkZtYwH6x9opmSsD",
     },
     {
-      title: "Prüfungen",
+      title: "Exams",
       description:
-        "Plane deine Tests und Klausuren, tracke deine Noten und behalte deine Ziele im Blick.",
+        "Plan your tests and exams, track your grades, and keep your goals in sight.",
       image:
         "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S51yrcXFquXPH0mjOyn78abUdv94Z3lwCJxeRT",
     },
     {
-      title: "Hausaufgaben",
+      title: "Assignments",
       description:
-        "Trage deine Hausaufgaben ein und vergiss nie wieder eine Abgabe – einfach und stressfrei.",
+        "Enter your homework and never miss a deadline again – simple and stress-free.",
       image:
         "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5V5i0FLuQ6P3E2zgFTukCjNGOtqW8U5bhIwyD",
     },
     {
-      title: "Stundenplan",
+      title: "Schedule",
       description:
-        "Erstelle und verwalte deinen Stundenplan, damit du immer weißt, was als Nächstes ansteht.",
+        "Create and manage your schedule so you always know what is coming up next.",
       image:
         "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5IplF0AwLqvXCDgkZlWrsOKpz5w8QEY9PMnG6",
     },
@@ -143,43 +143,43 @@ function FeaturesSection() {
 function BenefitsSection() {
   const benefits = [
     {
-      title: "Besserer Überblick",
+      title: "Better Overview",
       description:
-        "Behalte Hausaufgaben, Prüfungen und Noten jederzeit im Blick.",
+        "Keep track of assignments, exams, and grades at all times.",
       icon: ChartNoAxesGantt,
       color: "sky",
     },
     {
-      title: "Weniger Stress",
-      description: "Organisiere deinen Schulalltag, ohne dich zu überfordern.",
+      title: "Less Stress",
+      description: "Organize your daily student life without overwhelming yourself.",
       icon: Smile,
       color: "emerald",
     },
     {
-      title: "Mehr Zeit",
+      title: "More Time",
       description:
-        "Plane alles an einem Ort und spare dir das Suchen und Nachdenken.",
+        "Plan everything in one place and save time searching and overthinking.",
       icon: Clock,
       color: "indigo",
     },
     {
-      title: "Bessere Noten",
+      title: "Better Grades",
       description:
-        "Verpasse keine Abgaben oder Prüfungen und sei immer gut vorbereitet.",
+        "Never miss deadlines or exams and always be well-prepared.",
       icon: Goal,
       color: "amber",
     },
     {
-      title: "Einfach starten",
+      title: "Easy to Start",
       description:
-        "Keine komplizierten Funktionen – die App ist leicht und schnell zu nutzen.",
+        "No complicated features – the app is fast and easy to use.",
       icon: TrendingUp,
       color: "sky",
     },
     {
-      title: "Alles dabei",
+      title: "Everything Included",
       description:
-        "Egal ob Stundenplan, Hausaufgaben oder Noten – du hast alles in einer App.",
+        "Whether it is your schedule, assignments, or grades – you have everything in one app.",
       icon: GalleryVerticalEnd,
       color: "rose",
     },
@@ -188,7 +188,7 @@ function BenefitsSection() {
   return (
     <section className="container py-24">
       <h2 className="mb-12 text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-        Deine Vorteile
+        Your Benefits
       </h2>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {benefits.map((benefit, index) => {
@@ -218,17 +218,17 @@ function TestimonialSection() {
   const testimonials = [
     {
       name: "Jakob G.",
-      role: "Schüler, 10. Klasse",
+      role: "Student",
       content:
-        "Ich bin schon seit der Beta begeisterter Nutzer und sehr gespannt, was noch kommen wird.",
+        "I've been an enthusiastic user since the beta and am very excited for what's to come.",
       avatar: "JG",
       color: "orange",
     },
     {
       name: "Johannes S.",
-      role: "Entwickler, Schüler 10. Klasse",
+      role: "Developer & Student",
       content:
-        "Ich habe Studentapp entwickelt, um meine eigene Schulorganisation zu verbessern. Ich hoffe, dass auch andere Schüler davon profitieren.",
+        "I developed Studentapp to improve my own school organization. I hope other students will benefit from it too.",
       avatar: "JS",
       color: "indigo",
     },
@@ -237,7 +237,7 @@ function TestimonialSection() {
   return (
     <section className="container relative py-24">
       <h2 className="mb-12 text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-        Was andere Schüler sagen
+        What other students are saying
       </h2>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -273,36 +273,36 @@ function PricingSection() {
     <section className="container py-24">
       <div className="mx-auto max-w-3xl space-y-4 text-center">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-          Alles drin – und das kostenlos
+          Everything included – and it's free
         </h2>
         <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-          Nutze alle Features der App ohne Einschränkungen, komplett kostenlos.
+          Use all features of the app without restrictions, completely free of charge.
         </p>
       </div>
       <div className="mx-auto mt-12 flex justify-center">
         <Card className="relative w-full max-w-2xl overflow-hidden">
           <CardHeader>
-            <CardTitle className="text-2xl">Kostenlos</CardTitle>
-            <div className="mt-4 text-4xl font-bold">0€</div>
-            <p className="text-sm text-muted-foreground">Für immer kostenlos</p>
+            <CardTitle className="text-2xl">Free</CardTitle>
+            <div className="mt-4 text-4xl font-bold">$0</div>
+            <p className="text-sm text-muted-foreground">Free forever</p>
           </CardHeader>
           <CardContent className="grid gap-6">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <Check className="h-6 w-6 text-indigo-500" />
-                <span className="text-lg">Alle Funktionen der App</span>
+                <span className="text-lg">All app features</span>
               </div>
               <div className="flex items-center gap-3">
                 <Check className="h-6 w-6 text-indigo-500" />
-                <span className="text-lg">Keine Werbung</span>
+                <span className="text-lg">No ads</span>
               </div>
               <div className="flex items-center gap-3">
                 <Check className="h-6 w-6 text-indigo-500" />
-                <span className="text-lg">Für immer kostenlos</span>
+                <span className="text-lg">Free forever</span>
               </div>
             </div>
             <Button size="lg" className="mt-4 w-full" asChild>
-              <Link href="/login">Kostenlos starten</Link>
+              <Link href="/login">Get started for free</Link>
             </Button>
           </CardContent>
         </Card>
@@ -319,8 +319,7 @@ function OpenSourceSection() {
           Open Source & Transparent
         </h2>
         <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-          Studentapp ist komplett Open Source. Der gesamte Code ist auf GitHub
-          verfügbar – für maximale Transparenz und Sicherheit.
+          Studentapp is completely open source. The entire codebase is available on GitHub – for maximum transparency and security.
         </p>
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Button variant="outline" size="lg" className="gap-2" asChild>
@@ -336,13 +335,12 @@ function OpenSourceSection() {
                 width={24}
                 height={24}
               />
-              Auf GitHub ansehen
+              View on GitHub
             </Link>
           </Button>
         </div>
         <p className="mt-4 text-sm text-muted-foreground">
-          Du kannst den Code einsehen, Verbesserungen vorschlagen oder sogar
-          selbst zur Entwicklung beitragen.
+          You can view the code, suggest improvements, or even contribute to the development yourself.
         </p>
       </div>
     </section>
@@ -352,46 +350,46 @@ function OpenSourceSection() {
 function FAQSection() {
   const faqs = [
     {
-      question: "Ist die App wirklich kostenlos?",
+      question: "Is the app really free?",
       answer:
-        "Ja, die App ist komplett kostenlos und enthält alle Funktionen, die du brauchst. Es gibt keine versteckten Kosten oder Abos.",
+        "Yes, the app is completely free and includes all the features you need. There are no hidden costs or subscriptions.",
     },
     {
-      question: "Gibt es Werbung in der App?",
+      question: "Are there ads in the app?",
       answer:
-        "Nein, keine nervige Werbung – höchstens ein kleiner Hinweis auf eine andere App, die dir ebenfalls nützlich sein könnte 😉.",
+        "No, no annoying ads – at most a small tip about another app that might also be useful to you 😉.",
     },
     {
-      question: "Für welche Schulformen ist Studentapp geeignet?",
+      question: "Who is Studentapp suitable for?",
       answer:
-        "Studentapp ist für alle weiterführenden Schulen konzipiert, einschließlich Gymnasien, Realschulen, Gesamtschulen und Berufsschulen.",
+        "Studentapp is designed for students across all educational levels, including high schools, colleges, and universities.",
     },
     {
-      question: "Welche Notensysteme werden unterstützt?",
+      question: "Which grading systems are supported?",
       answer:
-        "Aktuell unterstützen wir das deutsche Notensystem (1-6) sowie das österreichische Notensystem (1-5). In Kürze werden wir auch das Schweizer Notensystem für Gymnasien und das deutsche 15-Punkte-System hinzufügen.",
+        "Currently, we support standard grading systems as well as point-based systems. We are continuously adding support for more regional formats.",
     },
     {
-      question: "Werden Ferienzeiten berücksichtigt?",
+      question: "Are holidays and vacations taken into account?",
       answer:
-        "Ja, wir unterstützen die Ferienkalender aller deutschen Bundesländer sowie Österreichs, bald auch Schweiz.",
+        "Yes, we support standard academic and holiday calendars to ensure your schedule stays accurate year-round.",
     },
     {
-      question: "Kann ich die App auf mehreren Geräten nutzen?",
+      question: "Can I use the app on multiple devices?",
       answer:
-        "Ja, du kannst dich mit deinem Konto auf verschiedenen Geräten anmelden und hast überall Zugriff auf deine Daten.",
+        "Yes, you can log into your account on different devices and access your data from anywhere.",
     },
     {
-      question: "Gibt es eine mobile App?",
+      question: "Is there a mobile app?",
       answer:
-        "Studentapp ist eine Progressive Web App (PWA), die du auf deinem Smartphone wie eine native App installieren und nutzen kannst. Sie funktioniert auf allen modernen Smartphones und Tablets. Um die App zu installieren, öffne Studentapp in deinem Browser und tippe auf 'Zum Startbildschirm hinzufügen' (iOS) oder 'Installieren' (Android).",
+        "Studentapp is a Progressive Web App (PWA) that you can install and use on your smartphone just like a native app. It works beautifully on all modern smartphones and tablets. To install it, open Studentapp in your browser and tap 'Add to Home Screen' (iOS) or 'Install' (Android).",
     },
   ];
 
   return (
     <section className="container py-24">
       <h2 className="mb-12 text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-        Häufig gestellte Fragen
+        Frequently Asked Questions
       </h2>
       <div className="mx-auto max-w-3xl">
         <Accordion type="single" collapsible className="w-full">
@@ -414,14 +412,13 @@ function CTASection() {
     <section className="container py-24">
       <div className="mx-auto max-w-3xl space-y-4 text-center">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-          Dein Schulalltag, einfach organisiert
+          Your student life, simply organized
         </h2>
         <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-          Starte jetzt mit Studentapp und bring Hausaufgaben, Prüfungen und
-          Stundenplan unter Kontrolle.
+          Start using Studentapp now and get your assignments, exams, and schedule under control.
         </p>
         <Button size="lg" asChild>
-          <Link href="/login">Jetzt kostenlos starten</Link>
+          <Link href="/login">Get started for free</Link>
         </Button>
       </div>
     </section>
