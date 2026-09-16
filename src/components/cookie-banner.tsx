@@ -29,8 +29,8 @@ export function CookieBanner() {
     <div className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background p-4 shadow-lg">
       <div className="container mx-auto flex items-center justify-between gap-4">
         <p className="text-sm text-muted-foreground">
-          Wir verwenden Cookies, um deine Erfahrung zu verbessern. Durch die
-          Nutzung dieser Website stimmst du unserer Verwendung von Cookies zu.
+          We use cookies to improve your experience. 
+          By using this website, you agree to our use of cookies.
         </p>
         <Button onClick={acceptCookies} className="shrink-0">
           Okay
