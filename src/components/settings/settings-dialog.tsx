@@ -294,7 +294,7 @@ export default function SettingsDialog({
         </Tabs>
         <DialogFooter className="flex w-full items-center justify-between">
           <p className="text-sm text-neutral-500">
-            Studentapp by Johannes Schießl
+            Studentapp by Kevin Shek
           </p>
           <Badge className="ml-1 mr-2 bg-indigo-100 text-indigo-500 hover:bg-indigo-100 hover:text-indigo-500">
             v1
