@@ -44,7 +44,7 @@ export default function SiteLayout({
               href="/privacy"
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
-              Data Protection
+              Privacy Policy
             </Link>
           </div>
           <Separator />
