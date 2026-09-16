@@ -20,7 +20,7 @@ export default function SiteLayout({
             <span className="font-bold">Studentapp</span>
           </Link>
           <Button asChild className="ml-4">
-            <Link href="/login">Jetzt starten</Link>
+            <Link href="/login">Let's start</Link>
           </Button>
         </div>
       </header>
