@@ -10,114 +10,112 @@ export default function PrivacyPage() {
     <>
       <div className="relative mx-auto max-w-4xl p-6">
         <div className="mb-8 pt-8 text-center">
-          <h1 className="text-3xl font-bold">Datenschutzerklärung</h1>
+          <h1 className="text-3xl font-bold">Privacy Policy</h1>
           <p className="mt-2 text-muted-foreground">
-            Zuletzt aktualisiert: 12.01.2025
+            Last updated: 12.01.2025
           </p>
         </div>
 
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="overview">
-            <AccordionTrigger>Überblick</AccordionTrigger>
+            <AccordionTrigger>Overview</AccordionTrigger>
             <AccordionContent>
-              Diese Datenschutzerklärung erläutert, wie Studentapp
-              (&ldquo;wir&rdquo;, &ldquo;uns&rdquo;, &ldquo;unser&rdquo;) Ihre
-              personenbezogenen Daten erfasst, verwendet und schützt. Durch die
-              Nutzung unseres Dienstes stimmen Sie der Erfassung und Verwendung
-              von Informationen gemäß dieser Richtlinie zu.
+              This Privacy Policy explains how Studentapp
+              (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) collects, uses, and protects your
+              personal data. By using our service, you agree to the collection and use
+              of information in accordance with this policy.
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="data-collection">
-            <AccordionTrigger>Informationen, die wir sammeln</AccordionTrigger>
+            <AccordionTrigger>Information We Collect</AccordionTrigger>
             <AccordionContent>
               <p className="mb-2">
-                Wir erfassen und speichern folgende Arten von Informationen:
+                We collect and store the following types of information:
               </p>
               <ul className="list-disc pl-6">
-                <li>Kontoinformationen (E-Mail, Name)</li>
-                <li>Schuljahrdaten und akademische Informationen</li>
-                <li>Stundenplan- und Zeitplaninformationen</li>
-                <li>Benutzereinstellungen</li>
-                <li>Nutzungsdaten und Analysen</li>
+                <li>Account information (email, name)</li>
+                <li>School year data and academic information</li>
+                <li>Timetable and schedule information</li>
+                <li>User preferences</li>
+                <li>Usage data and analytics</li>
               </ul>
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="data-storage">
             <AccordionTrigger>
-              Datenspeicherung und -verarbeitung
+              Data Storage and Processing
             </AccordionTrigger>
             <AccordionContent>
               <p className="mb-2">
-                Wir nutzen folgende Dienste zur Speicherung und Verarbeitung
-                Ihrer Daten:
+                We use the following services to store and process
+                your data:
               </p>
               <ul className="list-disc pl-6">
-                <li>Supabase für Datenbank-Hosting und Authentifizierung</li>
-                <li>Vercel für Anwendungs-Hosting und Bereitstellung</li>
+                <li>Supabase for database hosting and authentication</li>
+                <li>Vercel for application hosting and deployment</li>
               </ul>
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="cookies">
-            <AccordionTrigger>Cookies und Tracking</AccordionTrigger>
+            <AccordionTrigger>Cookies and Tracking</AccordionTrigger>
             <AccordionContent>
-              Wir verwenden Cookies und ähnliche Tracking-Technologien, um
-              Aktivitäten auf unserem Dienst zu verfolgen und bestimmte
-              Informationen zu speichern. Cookies sind Dateien mit einer kleinen
-              Datenmenge, die möglicherweise eine anonyme eindeutige Kennung
-              enthalten.
+              We use cookies and similar tracking technologies to
+              track activity on our service and hold certain
+              information. Cookies are files with a small amount of
+              data which may include an anonymous unique identifier.
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="data-security">
-            <AccordionTrigger>Datensicherheit</AccordionTrigger>
+            <AccordionTrigger>Data Security</AccordionTrigger>
             <AccordionContent>
-              Wir setzen angemessene Sicherheitsmaßnahmen ein, um vor unbefugtem
-              Zugriff, Änderung, Offenlegung oder Zerstörung Ihrer persönlichen
-              Daten zu schützen. Allerdings ist keine Übertragungsmethode über
-              das Internet zu 100% sicher.
+              We implement reasonable security measures to protect against unauthorized
+              access, alteration, disclosure, or destruction of your personal
+              data. However, no method of transmission over
+              the Internet is 100% secure.
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="data-rights">
-            <AccordionTrigger>Ihre Datenschutzrechte</AccordionTrigger>
+            <AccordionTrigger>Your Privacy Rights</AccordionTrigger>
             <AccordionContent>
-              <p className="mb-2">Sie haben das Recht auf:</p>
+              <p className="mb-2">You have the right to:</p>
               <ul className="list-disc pl-6">
-                <li>Zugriff auf Ihre persönlichen Daten</li>
-                <li>Korrektur ungenauer Daten</li>
-                <li>Löschung Ihrer Daten</li>
-                <li>Export Ihrer Daten</li>
-                <li>Widerruf der Einwilligung</li>
+                <li>Access your personal data</li>
+                <li>Correct inaccurate data</li>
+                <li>Delete your data</li>
+                <li>Export your data</li>
+                <li>Withdraw your consent</li>
               </ul>
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="analytics">
-            <AccordionTrigger>Analytik und Tracking</AccordionTrigger>
+            <AccordionTrigger>Analytics and Tracking</AccordionTrigger>
             <AccordionContent>
               <p className="mb-2">
-                Wir verwenden Posthog für Analysezwecke. Dies bedeutet:
+                We use Posthog for analytics purposes. This means:
               </p>
               <ul className="list-disc pl-6">
                 <li>
-                  Anonymisierte Erfassung von Nutzungsstatistiken (z.B. besuchte
-                  Seiten, Verweildauer)
+                  Anonymized collection of usage statistics (e.g., visited
+                  pages, time spent)
                 </li>
-                <li>Analyse von Funktionsnutzung zur Verbesserung der App</li>
-                <li>Keine personenbezogene Verfolgung einzelner Nutzer</li>
-                <li>Opt-out ist nur durch die Nichtnutzung der App möglich.</li>
+                <li>Analysis of feature usage to improve the app</li>
+                <li>No personal tracking of individual users</li>
+                <li>Opting out is only possible by not using the app.</li>
               </ul>
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="contact">
-            <AccordionTrigger>Kontaktinformationen</AccordionTrigger>
+            <AccordionTrigger>Contact Information</AccordionTrigger>
             <AccordionContent>
-              Bei Fragen zu dieser Datenschutzerklärung kontaktieren Sie uns
-              bitte unter:{" "}
+              If you have any questions about this Privacy Policy, please contact us
+              at:{" "}
               <a
                 href="mailto:contact.johannes@icloud.com"
                 className="text-primary hover:underline"
