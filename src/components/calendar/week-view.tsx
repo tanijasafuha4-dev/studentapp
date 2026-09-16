@@ -71,7 +71,7 @@ export default function WeekView({
     console.log("Loading events...");
   }
 
-  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat","Sun"];
 
   const getWeekDates = (startDate: Date) => {
     return Array.from({ length: 7 }, (_, i) => {
