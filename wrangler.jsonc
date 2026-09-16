@@ -13,7 +13,6 @@
   "vars": {
     "NEXT_PUBLIC_SUPABASE_URL": "https://mtpdbkwdhfqqakcwawev.supabase.co",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_-QZjim0WTEUJc_fmNlLb_A_QbKKEI3S"
-    "NEXT_PUBLIC_SITE_URL": "https://my-nankai-timetable.ccwu.cc"
   },
   "observability": {
     "enabled": true
