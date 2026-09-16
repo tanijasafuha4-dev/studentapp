@@ -1,17 +1,21 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { headers } from "next/headers";
+// import { headers } from "next/headers"; // 删掉或注释掉这行，不再依赖请求头
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
+// 直接硬编码你的南开专属反代域名
+const BASE_URL = "https://my-nankai-timetable.ccwu.cc";
+
 export async function handleGoogleLogin() {
   const supabase = createClient();
-  const orign = headers().get("origin");
+  
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${orign}/auth/callback`,
+      // 强制指定正确的回调路由
+      redirectTo: `${BASE_URL}/auth/callback`,
     },
   });
 
@@ -27,11 +31,11 @@ export async function handleGoogleLogin() {
 
 export async function handleDiscordLogin() {
   const supabase = createClient();
-  const orign = headers().get("origin");
+  
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "discord",
     options: {
-      redirectTo: `${orign}/auth/callback`,
+      redirectTo: `${BASE_URL}/auth/callback`,
     },
   });
 
