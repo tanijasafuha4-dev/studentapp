@@ -87,5 +87,5 @@ export async function handleEmailSignUp(formData: LoginFormData) {
     return { error: "该邮箱已被注册。如果未收到邮件，请检查垃圾邮件箱。" };
   }
 
-  return { success: "验证邮件已发送，请前往你的南开邮箱查收并点击验证链接！" };
+  return { success: "验证邮件已发送，请前往你的邮箱查收并点击验证链接！" };
 }
