@@ -1,3 +1,4 @@
+```typescript
 import { ChangeType } from "@/components/site/changelog/changelog-item";
 
 export interface ChangelogEntry {
@@ -9,87 +10,98 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
-    date: "12. Januar 2025",
+    date: "16 September 2026",
     type: "new",
-    title: "Die App ist jetzt bereit für dich!",
+    title: "Localization, Personalization and Other Fixes by Kevin Shek",
     description:
-      "Die App ist jetzt schneller und stabiler als je zuvor! Außerdem haben wir die Public Beta offiziell beendet – ab jetzt ist alles bereit für euch.",
+      "Kevin Shek completed the localization, personalization, and various other bug fixes and improvements.",
   },
   {
-    date: "28. Dezember 2024",
+    date: "January 12, 2025",
+    type: "new",
+    title: "The app is now ready for you!",
+    description:
+      "The app is now faster and more stable than ever! Plus, we have officially ended the public beta — from now on, everything is ready for you.",
+  },
+  {
+    date: "December 28, 2024",
     type: "fix",
-    title: "Fehler in der Seitenleiste behoben",
+    title: "Fixed sidebar bug",
     description:
-      "Die Fächer in der Seitenleiste wurden nicht mehr angezeigt – das Problem ist jetzt behoben.",
+      "The subjects in the sidebar were no longer displaying properly — this issue has now been fixed.",
   },
   {
-    date: "24. Dezember 2024",
+    date: "December 24, 2024",
     type: "fix",
-    title: "Stundenplan-Anzeige korrigiert",
+    title: "Timetable display corrected",
     description:
-      "Stunden im Stundenplan wurden falsch angezeigt und waren immer eine Stunde später. Das passt jetzt wieder!",
+      "Lessons in the timetable were displayed incorrectly and were always off by one hour. That is now fixed and working properly again!",
   },
   {
-    date: "30. November 2024",
+    date: "November 30, 2024",
     type: "new",
-    title: "Support für Österreich",
+    title: "Support for Austria",
     description:
-      "Ab sofort kannst du Österreich als Land und das österreichische Notensystem auswählen.",
+      "You can now select Austria as your country and use the Austrian grading system.",
   },
   {
-    date: "30. November 2024",
+    date: "November 30, 2024",
     type: "new",
-    title: "Fächer teilen",
+    title: "Share subjects",
     description:
-      "Teile deine Fächer ganz einfach mit Freunden – so könnt ihr sie schnell importieren und nutzen.",
+      "Easily share your subjects with friends — allowing you to quickly import and use them.",
   },
   {
-    date: "24. November 2024",
+    date: "November 24, 2024",
     type: "new",
-    title: "Gesamtdurchschnitt berechnen",
+    title: "Calculate overall average",
     description:
-      "Auf der Startseite und der Fächerseite wird jetzt dein Gesamtdurchschnitt angezeigt. Mit aktivierten Statistiken gibt es sogar noch mehr Infos über deine Noten.",
+      "Your overall average is now displayed on the home page and the subjects page. With statistics enabled, you get even more insights into your grades.",
   },
   {
-    date: "24. November 2024",
+    date: "November 24, 2024",
     type: "new",
-    title: "Zukünftige Prüfungen auf einen Blick",
+    title: "Upcoming exams at a glance",
     description:
-      "Deine anstehenden Prüfungen werden jetzt direkt auf der Startseite angezeigt.",
+      "Your upcoming exams are now displayed directly on the home page.",
   },
   {
-    date: "24. November 2024",
+    date: "November 24, 2024",
     type: "new",
-    title: "Mehr Komfort im Alltag",
+    title: "More everyday convenience",
     description:
-      "Die Fächer in der Seitenleiste sind jetzt standardmäßig zugeklappt, es werden nur deine Favoriten angezeigt. Außerdem gibt es Vorlagen für häufige Fächer, deutsche Tagesüberschriften bei den Hausaufgaben und ein Menü, um die App mit Freunden zu teilen.",
+      "The subjects in the sidebar are now collapsed by default, showing only your favorites. Additionally, there are templates for common subjects, daily headers for homework, and a menu to share the app with friends.",
   },
   {
-    date: "22. November 2024",
+    date: "November 22, 2024",
     type: "new",
-    title: "Prüfungsstatistiken hinzugefügt",
+    title: "Exam statistics added",
     description:
-      "In den Einstellungen kannst du jetzt Prüfungsstatistiken aktivieren, die dir den Notenverlauf, die Anzahl der Notentypen und den Durchschnitt pro Typ anzeigen.",
+      "You can now enable exam statistics in the settings, showing you grade trends, the number of grade types, and the average per type.",
   },
   {
-    date: "21. November 2024",
+    date: "November 21, 2024",
     type: "fix",
-    title: "Ein paar Kleinigkeiten verbessert",
+    title: "A few minor improvements",
     description:
-      "Ein Problem beim Bearbeiten des Stundenplans, das die App abstürzen ließ, wurde behoben. Außerdem ist das Kaffee-Icon jetzt ein Tee-Icon (ein viel gewünschtes Update!). Auch das Onboarding wurde überarbeitet.",
+      "An issue when editing the timetable that caused the app to crash has been fixed. Also, the coffee icon is now a tea icon (a highly requested update!). Onboarding has also been revised.",
   },
   {
-    date: "20. November 2024",
+    date: "November 20, 2024",
     type: "fix",
-    title: "Optimierungen der Public Beta",
+    title: "Public Beta optimizations",
     description:
-      "Ein Fehler bei der Notenberechnung wurde korrigiert, die Kalenderseite ist jetzt auf Deutsch, und das Bearbeiten von Prüfungen funktioniert wieder. Außerdem haben wir die Ladezeit des Kalenders stark verbessert und mobile Einstellungen sowie PWA-Unterstützung hinzugefügt.",
+      "A bug in grade calculation has been fixed, the calendar page is now in English, and editing exams works again. We also significantly improved the calendar loading time and added mobile settings as well as PWA support.",
   },
   {
-    date: "18. November 2024",
+    date: "November 18, 2024",
     type: "new",
-    title: "Public Beta gestartet",
+    title: "Public Beta launched",
     description:
-      "Die Studentapp ist jetzt in der öffentlichen Beta verfügbar! Erstelle Schuljahre, füge Fächer hinzu, verwalte Prüfungen und Hausaufgaben und behalte deinen Stundenplan im Blick. Auch deine Noten werden direkt berechnet, und der Tagesplan ist auf der Startseite sichtbar.",
+      "Studentapp is now available in public beta! Create school years, add subjects, manage exams and homework, and keep track of your timetable. Your grades are calculated automatically, and your daily schedule is visible right on the home page.",
   },
 ];
+
+```
+
+分析结束。
