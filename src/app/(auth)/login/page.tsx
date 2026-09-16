@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { handleGoogleLogin, handleDiscordLogin } from "./actions";
 import { BookCopy } from "lucide-react";
 // 引入刚刚编写好的邮箱注册/登录客户端组件
-import EmailAuthForm from "./email-auth-form"; 
+import EmailAuthForm from "@/components/auth/email-auth-form";
 
 export default async function LoginPage() {
   const supabase = createClient();
