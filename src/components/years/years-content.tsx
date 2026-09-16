@@ -39,12 +39,12 @@ export default function YearsContent({
             /* 1. 给整张卡片增加 relative 包装层，作为绝对定位的参照物 */
             <div key={year.id} className="relative group">
               
-              /* 2. 注入删除按钮，并用 z-10 确保它悬浮在卡片的最上层，不会被遮挡或误触 */
+              {/* 2. 注入删除按钮，并用 z-10 确保它悬浮在卡片的最上层，不会被遮挡或误触 */}
               <div className="z-10">
                 <DeleteYearButton id={year.id} />
               </div>
               
-              /* 3. 保持原有的卡片渲染逻辑不变 */
+              {/* 3. 保持原有的卡片渲染逻辑不变 */}
               <YearCard year={year} selectAction={selectAction} />
             </div>
           ))}
