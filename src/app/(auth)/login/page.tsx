@@ -35,7 +35,7 @@ export default async function LoginPage() {
               width={20}
               height={20}
             />
-            Mit Google anmelden
+            Sign in with Google
           </Button>
         </form>
         <form action={handleDiscordLogin}>
@@ -47,7 +47,7 @@ export default async function LoginPage() {
               width={20}
               height={20}
             />
-            Mit Discord anmelden
+            Sign in with Discord
           </Button>
         </form>
 
