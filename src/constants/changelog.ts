@@ -1,4 +1,3 @@
-```typescript
 import { ChangeType } from "@/components/site/changelog/changelog-item";
 
 export interface ChangelogEntry {
@@ -101,7 +100,3 @@ export const changelog: ChangelogEntry[] = [
       "Studentapp is now available in public beta! Create school years, add subjects, manage exams and homework, and keep track of your timetable. Your grades are calculated automatically, and your daily schedule is visible right on the home page.",
   },
 ];
-
-```
-
-分析结束。
