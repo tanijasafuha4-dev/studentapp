@@ -13,6 +13,7 @@
   "vars": {
     "NEXT_PUBLIC_SUPABASE_URL": "https://mtpdbkwdhfqqakcwawev.supabase.co",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_-QZjim0WTEUJc_fmNlLb_A_QbKKEI3S"
+  },
   "observability": {
     "enabled": true
   }
