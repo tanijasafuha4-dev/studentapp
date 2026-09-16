@@ -1,260 +1,314 @@
-"use server";
+"use client";
 
-import { cookies } from "next/headers";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-import { SchoolYear, TimeTable, SchoolYearSettings } from "@/types/school-year";
-import { addExamType, addExamTypeGroup } from "./exams";
 import {
-  RESOURCE_LIMITS,
-  checkResourceLimit,
-} from "@/lib/validation/resource-limits";
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLanguage } from "@/contexts/language-context";
+import {
+  BookCheck,
+  Languages,
+  LogOut,
+  Moon,
+  Settings,
+  Sun,
+  Trash,
+  UserRound,
+} from "lucide-react";
+import { useTheme } from "next-themes";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useTranslation } from "@/hooks/use-translation";
+import Icon from "../shared/icon";
+import { languages } from "@/config/languages";
+import { Button } from "../ui/button";
+import ExamSettingsContent from "./exams/exam-settings-content";
+import {
+  getExamTypeGroupsForCurrentSchoolYear,
+  getExamTypesForCurrentSchoolYear,
+} from "@/app/actions/exams";
+import { useEffect, useState } from "react";
+import { logOutUser } from "@/app/actions/user";
+import { ExamType, ExamTypeGroup } from "@/types/exams";
+import { deleteUserAccount } from "@/app/actions/user";
+import { Badge } from "../ui/badge";
+import { SchoolYearSettings } from "@/types/school-year";
+import { BarChart3 } from "lucide-react";
+import { updateSchoolYearSettings } from "@/app/actions/school-year";
+import { toast } from "sonner";
+import { Switch } from "../ui/switch";
 
-export async function getSchoolYear(id: number): Promise<SchoolYear> {
-  const supabase = createClient();
+interface SettingsDialogProps {
+  children: React.ReactNode;
+  settings?: SchoolYearSettings;
+}
 
-  const { data, error } = await supabase
-    .from("school_years")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error) {
-    console.error("Error fetching subjects:", error);
-    throw error;
-  }
-
+export default function SettingsDialog({
+  children,
+  settings: initialSettings,
+}: SettingsDialogProps) {
   const defaultSettings: SchoolYearSettings = {
     enableStatistics: false,
   };
 
-  return {
-    ...data,
-    settings: {
-      ...defaultSettings,
-      ...data.settings,
-    },
-  } as SchoolYear;
-}
+  const [settings, setSettings] = useState<SchoolYearSettings>(
+    initialSettings || defaultSettings,
+  );
 
-export async function getTimeTable(): Promise<TimeTable> {
-  const supabase = createClient();
+  const [initialExamTypeGroups, setInitialExamTypeGroups] = useState<
+    ExamTypeGroup[]
+  >([]);
+  const [initialExamTypes, setInitialExamTypes] = useState<ExamType[]>([]);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  const id = await getCurrentSchoolYearId();
+  useEffect(() => {
+    async function getInitialData() {
+      const examTypeGroups = await getExamTypeGroupsForCurrentSchoolYear();
+      const examTypes = await getExamTypesForCurrentSchoolYear();
+      setInitialExamTypeGroups(examTypeGroups);
+      setInitialExamTypes(examTypes);
+    }
+    getInitialData();
+  }, []);
 
-  const { data, error } = await supabase
-    .from("school_years")
-    .select("timetable")
-    .eq("id", id)
-    .single();
+  const { theme, setTheme } = useTheme();
+  const { language, setLanguage } = useLanguage();
+  const { t } = useTranslation();
 
-  if (error) {
-    console.error("Error fetching timetable:", error);
-    throw error;
+  console.log(settings);
+
+  async function handleSettingChange(
+    key: keyof SchoolYearSettings,
+    value: boolean,
+  ) {
+    const newSettings = { ...settings, [key]: value };
+    setSettings(newSettings);
+    try {
+      await updateSchoolYearSettings(newSettings);
+    } catch (error) {
+      console.error("Failed to update settings:", error);
+      toast.error(t("common.error"));
+    }
   }
 
   return (
-    data.timetable || {
-      monday: [],
-      tuesday: [],
-      wednesday: [],
-      thursday: [],
-      friday: [],
-    }
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t("settings")}</DialogTitle>
+        </DialogHeader>
+        <Tabs defaultValue="general" className="h-[400px] w-full">
+          <TabsList className="w-full">
+            <TabsTrigger className="w-1/3" value="general">
+              <span className="flex items-center">
+                <Settings className="mr-1 h-4 w-4" /> {t("settings.general")}
+              </span>
+            </TabsTrigger>
+            <TabsTrigger className="w-1/3" value="examTypes">
+              <span className="flex items-center">
+                <BookCheck className="mr-1 h-4 w-4" />{" "}
+                {t("settings.exam_types")}
+              </span>
+            </TabsTrigger>
+            <TabsTrigger className="w-1/3" value="account">
+              <span className="flex items-center">
+                <UserRound className="mr-1 h-4 w-4" /> {t("settings.account")}
+              </span>
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="general">
+            <div className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-[1rem] py-2 text-neutral-700 transition-all duration-200 ease-in-out dark:text-neutral-300">
+              <div className="flex items-center">
+                <Icon className="mr-2">
+                  <Sun className="h-5 w-5 dark:hidden" />
+                  <Moon className="hidden h-5 w-5 dark:block" />
+                </Icon>
+                {t("settings.theme")}
+              </div>
+              <Select onValueChange={(value) => setTheme(value)} value={theme}>
+                <SelectTrigger className="w-[170px]">
+                  <SelectValue>
+                    {theme
+                      ? theme.charAt(0).toUpperCase() + theme.slice(1)
+                      : ""}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="system">
+                    {t("settings.theme.system")}
+                  </SelectItem>
+                  <SelectItem value="light">
+                    {t("settings.theme.light")}
+                  </SelectItem>
+                  <SelectItem value="dark">
+                    {t("settings.theme.dark")}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-[1rem] py-2 text-neutral-700 transition-all duration-200 ease-in-out dark:text-neutral-300">
+              <div className="flex items-center">
+                <Icon className="mr-2">
+                  <Languages className="h-5 w-5" />
+                </Icon>
+                {t("settings.language")}
+              </div>
+              <Select
+                onValueChange={(value: "en" | "de") => setLanguage(value)}
+                value={language}
+              >
+                <SelectTrigger className="w-[170px]">
+                  <SelectValue>
+                    {t(`settings.language.${language}`)}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {languages.map((lang) => (
+                    <SelectItem key={lang} value={lang}>
+                      {t(`settings.language.${lang}`)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-[1rem] py-2 text-neutral-700 transition-all duration-200 ease-in-out dark:text-neutral-300">
+              <div className="flex items-center">
+                <Icon className="mr-2">
+                  <BarChart3 className="h-5 w-5" />
+                </Icon>
+                <div className="flex flex-col">
+                  <span>{t("settings.statistics.enable")}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {t("settings.statistics.description")}
+                  </span>
+                </div>
+              </div>
+              <Switch
+                checked={settings.enableStatistics}
+                onCheckedChange={() =>
+                  handleSettingChange(
+                    "enableStatistics",
+                    !settings.enableStatistics,
+                  )
+                }
+              />
+            </div>
+          </TabsContent>
+          <TabsContent value="examTypes">
+            <ExamSettingsContent
+              initialExamTypeGroups={initialExamTypeGroups}
+              initialExamTypes={initialExamTypes}
+            />
+          </TabsContent>
+          <TabsContent value="account">
+            <SettingsItem>
+              <div className="flex items-center">
+                <Icon className="mr-2">
+                  <LogOut className="h-5 w-5" />
+                </Icon>
+                {t("settings.logout")}
+              </div>
+
+              <Button
+                onClick={() => logOutUser()}
+                variant="outline"
+                className="w-[170px]"
+              >
+                {t("settings.logout")}
+              </Button>
+            </SettingsItem>
+
+            <SettingsItem>
+              <div className="flex items-center">
+                <Icon className="mr-2">
+                  <Trash className="h-5 w-5" />
+                </Icon>
+                {t("settings.account.delete")}
+              </div>
+
+              <AlertDialog>
+                <AlertDialogTrigger>
+                  <Button
+                    variant="destructive"
+                    className="w-[170px]"
+                    disabled={isDeleting}
+                  >
+                    {isDeleting
+                      ? t("common.loading")
+                      : t("settings.account.delete.button")}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      {t("settings.account.delete.confirm.title")}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      {t("settings.account.delete.confirm.description")}
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
+                    <AlertDialogAction
+                      className="bg-destructive hover:bg-destructive/80"
+                      onClick={async (e) => {
+                        e.preventDefault();
+                        setIsDeleting(true);
+                        try {
+                          await deleteUserAccount();
+                        } catch (error) {
+                          console.error("Failed to delete account:", error);
+                          setIsDeleting(false);
+                        }
+                      }}
+                    >
+                      {t("settings.account.delete.button")}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </SettingsItem>
+          </TabsContent>
+        </Tabs>
+        <DialogFooter className="flex w-full items-center justify-between">
+          <p className="text-sm text-neutral-500">
+            Studentapp by Kevin Shek
+          </p>
+          <Badge className="ml-1 mr-2 bg-indigo-100 text-indigo-500 hover:bg-indigo-100 hover:text-indigo-500">
+            v1
+          </Badge>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
 
-export async function getCurrentSchoolYearId(): Promise<number> {
-  const cookieStore = cookies();
-  const currentSchoolYearId = cookieStore.get("currentSchoolYearId");
-  return currentSchoolYearId ? parseInt(currentSchoolYearId.value, 10) : 0;
-}
-
-export async function setCurrentSchoolYearId(id: number) {
-  cookies().set("currentSchoolYearId", id.toString(), {
-    path: "/",
-    maxAge: 31536000,
-    sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
-  });
-
-  revalidatePath("/");
-}
-
-export async function createSchoolYear(
-  data: Partial<SchoolYear>,
-) {
-  const supabase = createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("Not authenticated");
-
-  // Check school year limit
-  await checkResourceLimit(
-    supabase,
-    "school_years",
-    "id",
-    { user_id: user.id },
-    RESOURCE_LIMITS.SCHOOL_YEARS_PER_USER,
-    "You have reached the maximum limit of school years (4)",
+function SettingsItem({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-[1rem] py-2 text-neutral-700 transition-all duration-200 ease-in-out dark:text-neutral-300">
+      {children}
+    </div>
   );
-
-  const newSchoolYear = {
-    ...data,
-    user_id: user.id,
-    grading_system: data.grading_system || "nankai_100_point",
-    vacation_region: data.vacation_region || "autumn",
-    timetable: data.timetable || {
-      monday: [],
-      tuesday: [],
-      wednesday: [],
-      thursday: [],
-      friday: [],
-    },
-    settings: {
-      enableStatistics: false,
-      ...data.settings,
-    },
-  };
-
-  const { data: schoolYear, error } = await supabase
-    .from("school_years")
-    .insert(newSchoolYear)
-    .select()
-    .single();
-
-  if (error) {
-    console.error("Error creating school year:", error);
-    throw error;
-  }
-
-  await setCurrentSchoolYearId(schoolYear.id);
-
-  // 定制南开大学化学系考核分类（大一专属）
-  const examGroup = await addExamTypeGroup({
-    name: "考试成绩",
-    weight: 6, // 占总评 60%
-  });
-
-  const dailyGroup = await addExamTypeGroup({
-    name: "平时成绩",
-    weight: 4, // 占总评 40%
-  });
-
-  await addExamType({
-    name: "期末考试",
-    group_id: examGroup[0].id,
-    weight: 2,
-  });
-
-  await addExamType({
-    name: "期中考试",
-    group_id: examGroup[0].id,
-    weight: 1,
-  });
-
-  await addExamType({
-    name: "实验报告", // 适合化学基础实验课
-    group_id: dailyGroup[0].id,
-    weight: 2,
-  });
-
-  await addExamType({
-    name: "随堂测验",
-    group_id: dailyGroup[0].id,
-    weight: 1,
-  });
-
-  await addExamType({
-    name: "课堂考勤",
-    group_id: dailyGroup[0].id,
-    weight: 1,
-  });
-
-  // 服务端强制跳转回仪表盘主页
-  redirect("/home");
-}
-
-export async function getAllSchoolYears(): Promise<SchoolYear[]> {
-  const supabase = createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("Not authenticated");
-
-  const { data, error } = await supabase
-    .from("school_years")
-    .select("*")
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    console.error("Error fetching school years:", error);
-    throw error;
-  }
-
-  return data as SchoolYear[];
-}
-
-export async function updateTimeTable(timetable: TimeTable): Promise<void> {
-  const supabase = createClient();
-  const id = await getCurrentSchoolYearId();
-
-  const { error } = await supabase
-    .from("school_years")
-    .update({ timetable })
-    .eq("id", id);
-
-  if (error) {
-    console.error("Error updating timetable:", error);
-    throw error;
-  }
-
-  revalidatePath("/timetable");
-}
-
-export async function updateSchoolYearSettings(
-  settings: SchoolYearSettings,
-): Promise<void> {
-  const supabase = createClient();
-  const id = await getCurrentSchoolYearId();
-
-  const { error } = await supabase
-    .from("school_years")
-    .update({ settings })
-    .eq("id", id);
-
-  if (error) {
-    console.error("Error updating settings:", error);
-    throw error;
-  }
-
-  revalidatePath("/subjects/[id]", "page");
-}
-
-// 新增功能：删除选定的历史学年
-export async function deleteSchoolYear(id: number): Promise<void> {
-  const supabase = createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("Not authenticated");
-
-  const { error } = await supabase
-    .from("school_years")
-    .delete()
-    .eq("id", id)
-    .eq("user_id", user.id);
-
-  if (error) {
-    console.error("Error deleting school year:", error);
-    throw error;
-  }
-
-  revalidatePath("/years");
 }
