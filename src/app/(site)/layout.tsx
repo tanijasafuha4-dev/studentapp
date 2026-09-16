@@ -49,7 +49,7 @@ export default function SiteLayout({
           </div>
           <Separator />
           <p className="text-center leading-loose text-muted-foreground">
-            Johannes Schießl © 2024-2025
+            Kevin Shek © 2026-2027
           </p>
         </div>
       </footer>
