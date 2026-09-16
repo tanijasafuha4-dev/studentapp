@@ -33,39 +33,32 @@ export default function NewYearPage() {
   const { t } = useTranslation();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState("de");
 
+  // 定制南开专属的表单验证逻辑
   const formSchema = z.object({
     class: z.coerce
       .number({
-        invalid_type_error: t("years.class_error"),
+        invalid_type_error: "请输入有效的年级数字",
       })
-      .min(1, t("years.class_error"))
-      .max(13, t("years.class_error"))
+      .min(1, "最低为大一 (1)")
+      .max(4, "最高为大四 (4)") // 本科四年制
       .refine((val) => !isNaN(val), {
-        message: t("years.class_error"),
+        message: "年级必须是数字",
       }),
-    country: z.string(),
-    grading_system: z.string().default("de_full_grades"),
-    vacation_region: z.string().default("de_baden_wuerttemberg"),
+    country: z.string(), // 复用字段：改为代表“校区”
+    grading_system: z.string().default("nankai_100_point"),
+    vacation_region: z.string().default("autumn_semester"), // 复用字段：改为代表“学期”
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      grading_system: "de_full_grades",
-      vacation_region: "de_baden_wuerttemberg",
-      country: "de",
+      class: 1, // 默认大一
+      country: "jinnan", // 默认津南校区
+      vacation_region: "autumn", // 默认秋季学期
+      grading_system: "nankai_100_point", // 默认百分制
     },
   });
-
-  const handleCountryChange = (value: string) => {
-    setSelectedCountry(value);
-    form.setValue(
-      "vacation_region",
-      value === "de" ? "de_baden_wuerttemberg" : "at_wien",
-    );
-  };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -75,6 +68,7 @@ export default function NewYearPage() {
         grading_system: values.grading_system,
         vacation_region: values.vacation_region,
       });
+      // 依然原样传给后端，数据库存入的将是我们自定义的字符串
       router.push("/home");
     } catch (error) {
       console.error("Failed to create school year:", error);
@@ -87,51 +81,46 @@ export default function NewYearPage() {
     <>
       <BackButton url="/years" />
       <div className="mb-8 pt-8 text-center">
-        <h1 className="text-3xl font-bold">{t("years.create_new")}</h1>
+        <h1 className="text-3xl font-bold">创建新学期</h1>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          
+          {/* 1. 年级选项 (Class) */}
           <FormField
             control={form.control}
             name="class"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("years.class")}</FormLabel>
+                <FormLabel>当前年级 (本科)</FormLabel>
                 <FormControl>
                   <Input type="number" {...field} />
                 </FormControl>
                 <FormDescription>
-                  {t("years.class_description")}
+                  请输入 1 到 4 之间的数字（1代表大一，以此类推）。
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
 
+          {/* 2. 校区选项 (原 Country) */}
           <FormField
             control={form.control}
             name="country"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("years.country")}</FormLabel>
-                <Select
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    handleCountryChange(value);
-                  }}
-                  defaultValue={field.value}
-                >
+                <FormLabel>所在校区</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder={t("years.select_country")} />
+                      <SelectValue placeholder="选择校区" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="de">Deutschland</SelectItem>
-                    <SelectItem value="at">Österreich</SelectItem>
-                    <SelectItem value="other">
-                      {t("years.other_region")}
-                    </SelectItem>
+                    <SelectItem value="jinnan">津南校区</SelectItem>
+                    <SelectItem value="balitai">八里台校区</SelectItem>
+                    <SelectItem value="teda">泰达校区</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -139,81 +128,23 @@ export default function NewYearPage() {
             )}
           />
 
+          {/* 3. 学期选项 (原 Region) */}
           <FormField
             control={form.control}
             name="vacation_region"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("years.region")}</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <FormLabel>当前学期</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder={t("years.select_region")} />
+                      <SelectValue placeholder="选择学期" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {selectedCountry === "de" ? (
-                      <>
-                        <SelectItem value="de_baden_wuerttemberg">
-                          Baden-Württemberg
-                        </SelectItem>
-                        <SelectItem value="de_bayern">Bayern</SelectItem>
-                        <SelectItem value="de_berlin">Berlin</SelectItem>
-                        <SelectItem value="de_bremen">Bremen</SelectItem>
-                        <SelectItem value="de_hamburg">Hamburg</SelectItem>
-                        <SelectItem value="de_hessen">Hessen</SelectItem>
-                        <SelectItem value="de_mecklenburg_vorpommern">
-                          Mecklenburg-Vorpommern
-                        </SelectItem>
-                        <SelectItem value="de_niedersachsen">
-                          Niedersachsen
-                        </SelectItem>
-                        <SelectItem value="de_nordrhein_westfalen">
-                          Nordrhein-Westfalen
-                        </SelectItem>
-                        <SelectItem value="de_rheinland_pfalz">
-                          Rheinland-Pfalz
-                        </SelectItem>
-                        <SelectItem value="de_saarland">Saarland</SelectItem>
-                        <SelectItem value="de_sachsen_anhalt">
-                          Sachsen-Anhalt
-                        </SelectItem>
-                        <SelectItem value="de_sachsen">Sachsen</SelectItem>
-                        <SelectItem value="de_schleswig_holstein">
-                          Schleswig-Holstein
-                        </SelectItem>
-                        <SelectItem value="de_thueringen">Thüringen</SelectItem>
-                      </>
-                    ) : selectedCountry === "at" ? (
-                      <>
-                        <SelectItem value="at_wien">Wien</SelectItem>
-                        <SelectItem value="at_niederoesterreich">
-                          Niederösterreich
-                        </SelectItem>
-                        <SelectItem value="at_salzburg">Salzburg</SelectItem>
-                        <SelectItem value="at_karnten">Kärnten</SelectItem>
-                        <SelectItem value="at_oberoesterreich">
-                          Oberösterreich
-                        </SelectItem>
-                        <SelectItem value="at_steiermark">
-                          Steiermark
-                        </SelectItem>
-                        <SelectItem value="at_tirol">Tirol</SelectItem>
-                        <SelectItem value="at_vorarlberg">
-                          Vorarlberg
-                        </SelectItem>
-                        <SelectItem value="at_burgenland">
-                          Burgenland
-                        </SelectItem>
-                      </>
-                    ) : (
-                      <SelectItem value="other">
-                        {t("years.other_region")}
-                      </SelectItem>
-                    )}
+                    <SelectItem value="autumn">秋季学期</SelectItem>
+                    <SelectItem value="spring">春季学期</SelectItem>
+                    <SelectItem value="summer">夏季小学期</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -221,28 +152,22 @@ export default function NewYearPage() {
             )}
           />
 
+          {/* 4. 评分系统 (Grading System) */}
           <FormField
             control={form.control}
             name="grading_system"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("years.grading")}</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <FormLabel>成绩评定系统</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder={t("years.select_grading")} />
+                      <SelectValue placeholder="选择评分系统" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="de_full_grades">
-                      {t("years.full_grades")}
-                    </SelectItem>
-                    <SelectItem value="at_full_grades">
-                      {t("years.full_grades_1-5")}
-                    </SelectItem>
+                    <SelectItem value="nankai_100_point">百分制 (0-100分)</SelectItem>
+                    <SelectItem value="nankai_gpa">绩点制 (GPA)</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -250,19 +175,14 @@ export default function NewYearPage() {
             )}
           />
 
-          <Button
-            type="submit"
-            size="lg"
-            className="w-full"
-            disabled={isLoading}
-          >
+          <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
             {isLoading ? (
               <>
-                <span className="mr-2">{t("common.creating")}</span>
+                <span className="mr-2">正在创建...</span>
                 <Loader2 className="h-4 w-4 animate-spin" />
               </>
             ) : (
-              t("common.create")
+              "确认创建"
             )}
           </Button>
         </form>
