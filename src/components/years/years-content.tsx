@@ -2,6 +2,7 @@
 
 import { SchoolYear } from "@/types/school-year";
 import { useTranslation } from "@/hooks/use-translation";
+import DeleteYearButton from "@/components/years/delete-year-button";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
