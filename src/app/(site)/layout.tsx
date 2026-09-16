@@ -38,13 +38,13 @@ export default function SiteLayout({
               href="/terms"
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
-              Nutzungsbedingungen
+              Terms of Use
             </Link>
             <Link
               href="/privacy"
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
-              Datenschutz
+              Data Protection
             </Link>
           </div>
           <Separator />
