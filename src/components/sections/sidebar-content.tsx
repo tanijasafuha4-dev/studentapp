@@ -11,6 +11,7 @@ import {
   ChevronDown,
   Plus,
   Star,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -50,6 +51,7 @@ export function SidebarContent({ subjects }: { subjects: Subject[] }) {
     { name: t("calendar"), icon: CalendarDays, href: "/calendar" },
     { name: t("subjects"), icon: FolderOpen, href: "/subjects" },
     { name: t("homeworks"), icon: ListChecks, href: "/homework" },
+    { name: t("Profile"), href: "/profile", icon: User },
   ];
 
   const sortedAndFilteredSubjects = useMemo((): SortedSubjects => {
