@@ -88,6 +88,8 @@ export async function handleEmailSignUp(formData: LoginFormData) {
   }
 
   return { success: "验证邮件已发送，请前往你的邮箱查收并点击验证链接！" };
+  }
+
 export async function handleEmailLogin(formData: LoginFormData) {
   headers(); // 唤醒动态请求机制
   const supabase = createClient();
@@ -111,3 +113,4 @@ export async function handleEmailLogin(formData: LoginFormData) {
   // 登录成功后直接在服务端执行重定向，跳转到仪表盘
   redirect("/home");
 }
+
