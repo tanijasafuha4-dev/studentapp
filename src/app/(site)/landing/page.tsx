@@ -69,7 +69,7 @@ function HeroSection() {
         <div className="relative mx-auto max-w-6xl">
           <div className="relative aspect-[4/3] w-full">
             <Image
-              src="https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5fvVgYVJ7YXwUdxpIk90Ka8oNFGW2Dj5hArBV"
+              src="/图1.jpg"
               alt="Studentapp on iPhone and iPad"
               fill
               className="object-cover"
@@ -89,28 +89,28 @@ function FeaturesSection() {
       description:
         "Organize your subjects clearly so you always have everything important at your fingertips.",
       image:
-        "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S505vMY1G2IlcvhrjQdFX0UkZtYwH6x9opmSsD",
+        "/图2.jpg",
     },
     {
       title: "Exams",
       description:
         "Plan your tests and exams, track your grades, and keep your goals in sight.",
       image:
-        "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S51yrcXFquXPH0mjOyn78abUdv94Z3lwCJxeRT",
+        "/图3.jpg",
     },
     {
       title: "Assignments",
       description:
         "Enter your homework and never miss a deadline again – simple and stress-free.",
       image:
-        "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5V5i0FLuQ6P3E2zgFTukCjNGOtqW8U5bhIwyD",
+        "/图4.jpg",
     },
     {
       title: "Schedule",
       description:
         "Create and manage your schedule so you always know what is coming up next.",
       image:
-        "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5IplF0AwLqvXCDgkZlWrsOKpz5w8QEY9PMnG6",
+        "/图5.jpg",
     },
   ];
 
