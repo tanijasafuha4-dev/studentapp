@@ -69,7 +69,7 @@ function HeroSection() {
         <div className="relative mx-auto max-w-6xl">
           <div className="relative aspect-[4/3] w-full">
             <Image
-              src="/图1.jpg"
+              src="/public/图1.jpg"
               alt="Studentapp on iPhone and iPad"
               fill
               className="object-cover"
@@ -89,28 +89,28 @@ function FeaturesSection() {
       description:
         "Organize your subjects clearly so you always have everything important at your fingertips.",
       image:
-        "/图2.jpg",
+        "/public/图2.jpg",
     },
     {
       title: "Exams",
       description:
         "Plan your tests and exams, track your grades, and keep your goals in sight.",
       image:
-        "/图3.jpg",
+        "/public/图3.jpg",
     },
     {
       title: "Assignments",
       description:
         "Enter your homework and never miss a deadline again – simple and stress-free.",
       image:
-        "/图4.jpg",
+        "/public/图4.jpg",
     },
     {
       title: "Schedule",
       description:
         "Create and manage your schedule so you always know what is coming up next.",
       image:
-        "/图5.jpg",
+        "/public/图5.jpg",
     },
   ];
 
