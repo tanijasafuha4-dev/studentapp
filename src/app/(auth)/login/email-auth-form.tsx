@@ -8,12 +8,11 @@ import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// 指向同级目录下的 actions.ts
-import { handleEmailLogin, handleEmailSignUp } from "./actions"; 
+import { handleEmailLogin, handleEmailSignUp } from "./actions";
 
 const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  email: z.string().email("无效的邮箱地址"),
+  password: z.string().min(6, "密码长度必须至少为 6 位"),
 });
 
 export default function EmailAuthForm() {
@@ -28,25 +27,50 @@ export default function EmailAuthForm() {
   const onLogin = async (values: z.infer<typeof loginSchema>) => {
     setIsLoading(true);
     setMessage(null);
-    const result = await handleEmailLogin(values);
-    if (result?.error) {
-      setMessage({ type: "error", text: result.error });
+    try {
+      // 设定 8 秒超时拦截
+      const timeoutPromise = new Promise<{ error?: string }>((resolve) =>
+        setTimeout(() => resolve({ error: "登录请求超时，请检查网络或稍后重试。" }), 8000)
+      );
+      
+      const result = await Promise.race([handleEmailLogin(values), timeoutPromise]);
+
+      if (result?.error) {
+        // 精准拦截 Supabase 的未验证报错并汉化
+        if (result.error.includes("Email not confirmed")) {
+          setMessage({ type: "error", text: "该邮箱尚未验证，请前往收件箱点击验证链接。" });
+        } else if (result.error.includes("Invalid login credentials")) {
+          setMessage({ type: "error", text: "账号或密码错误，请重新输入。" });
+        } else {
+          setMessage({ type: "error", text: result.error });
+        }
+      }
+    } finally {
+      // 无论发什么情况，强制停止转圈动画
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const onSignUp = async (values: z.infer<typeof loginSchema>) => {
     setIsLoading(true);
     setMessage(null);
-    const result = await handleEmailSignUp(values);
-    
-    if (result?.error) {
-      setMessage({ type: "error", text: result.error });
-    } else if (result?.success) {
-      setMessage({ type: "success", text: result.success });
-      form.reset();
+    try {
+      // 设定 8 秒超时拦截
+      const timeoutPromise = new Promise<{ error?: string; success?: string }>((resolve) =>
+        setTimeout(() => resolve({ error: "注册请求超时，请检查网络或稍后重试。" }), 8000)
+      );
+      
+      const result = await Promise.race([handleEmailSignUp(values), timeoutPromise]);
+      
+      if (result?.error) {
+        setMessage({ type: "error", text: result.error });
+      } else if (result?.success) {
+        setMessage({ type: "success", text: result.success });
+        form.reset();
+      }
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
