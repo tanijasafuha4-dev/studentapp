@@ -88,4 +88,26 @@ export async function handleEmailSignUp(formData: LoginFormData) {
   }
 
   return { success: "验证邮件已发送，请前往你的邮箱查收并点击验证链接！" };
+export async function handleEmailLogin(formData: LoginFormData) {
+  headers(); // 唤醒动态请求机制
+  const supabase = createClient();
+
+  // 校验前端传来的表单数据
+  const result = loginSchema.safeParse(formData);
+  if (!result.success) {
+    return { error: result.error.message };
+  }
+
+  // 调用 signInWithPassword 接口进行常规登录
+  const { error } = await supabase.auth.signInWithPassword({
+    email: formData.email,
+    password: formData.password,
+  });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  // 登录成功后直接在服务端执行重定向，跳转到仪表盘
+  redirect("/home");
 }
