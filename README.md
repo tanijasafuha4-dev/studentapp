@@ -23,10 +23,10 @@ An app for students to track their grades, homework, timetable, subjects and exa
 ## Screenshots
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-  <img src="https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S505vMY1G2IlcvhrjQdFX0UkZtYwH6x9opmSsD" alt="Subjects" width="400"/>
-  <img src="https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S51yrcXFquXPH0mjOyn78abUdv94Z3lwCJxeRT" alt="Exams" width="400"/>
-  <img src="https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5V5i0FLuQ6P3E2zgFTukCjNGOtqW8U5bhIwyD" alt="Homework" width="400"/>
-  <img src="https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5IplF0AwLqvXCDgkZlWrsOKpz5w8QEY9PMnG6" alt="Timetable" width="400"/>
+  <img src="/图2.jpg" alt="Subjects" width="400"/>
+  <img src="/图3.jpg" alt="Exams" width="400"/>
+  <img src="/图4.jpg" alt="Homework" width="400"/>
+  <img src="/图5.jpg" alt="Timetable" width="400"/>
 </div>
 
 ## Tech Stack
