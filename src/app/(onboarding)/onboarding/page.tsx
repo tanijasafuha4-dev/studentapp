@@ -25,7 +25,7 @@ export default function OnboardingPage() {
       title: t("onboarding.welcome.title"),
       description: t("onboarding.welcome.description"),
       image:
-        "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5MfJlNEc8igA9us2Pm7QH3Vokth8OeyKJYL1r",
+        "/public/引导-1.jpg",
       icon: BookOpen,
       iconColor: "bg-blue-100 text-blue-500",
     },
@@ -33,7 +33,7 @@ export default function OnboardingPage() {
       title: t("onboarding.subjects.title"),
       description: t("onboarding.subjects.description"),
       image:
-        "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S505vMY1G2IlcvhrjQdFX0UkZtYwH6x9opmSsD",
+        "/public/引导-2.jpg",
       icon: GraduationCap,
       iconColor: "bg-green-100 text-green-500",
     },
@@ -41,7 +41,7 @@ export default function OnboardingPage() {
       title: t("onboarding.homework.title"),
       description: t("onboarding.homework.description"),
       image:
-        "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5V5i0FLuQ6P3E2zgFTukCjNGOtqW8U5bhIwyD",
+        "/public/引导-3.jpg",
       icon: BookCheck,
       iconColor: "bg-purple-100 text-purple-500",
     },
@@ -49,7 +49,7 @@ export default function OnboardingPage() {
       title: t("onboarding.schedule.title"),
       description: t("onboarding.schedule.description"),
       image:
-        "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5IplF0AwLqvXCDgkZlWrsOKpz5w8QEY9PMnG6",
+        "/public/引导-4.jpg",
       icon: Calendar,
       iconColor: "bg-orange-100 text-orange-500",
     },
@@ -57,7 +57,7 @@ export default function OnboardingPage() {
       title: t("onboarding.exams.title"),
       description: t("onboarding.exams.description"),
       image:
-        "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S51yrcXFquXPH0mjOyn78abUdv94Z3lwCJxeRT",
+        "/public/引导-5.jpg",
       icon: CalendarClock,
       iconColor: "bg-emerald-100 text-emerald-500",
     },
@@ -65,7 +65,7 @@ export default function OnboardingPage() {
       title: t("onboarding.devices.title"),
       description: t("onboarding.devices.description"),
       image:
-        "https://ygokgtgl7r.ufs.sh/f/UZ4yvln5I9S5fvVgYVJ7YXwUdxpIk90Ka8oNFGW2Dj5hArBV",
+        "/public/引导-6.jpg",
       icon: Monitor,
       iconColor: "bg-indigo-100 text-indigo-500",
     },
