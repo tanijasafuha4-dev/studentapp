@@ -1,4 +1,4 @@
-![Studentapp-Banner](/src/app/opengraph-image.png)
+![Studentapp-Banner](/src/app/图0.jpg)
 
 # Studentapp
 
