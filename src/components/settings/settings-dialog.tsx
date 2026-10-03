@@ -19,6 +19,8 @@ import {
   Sun,
   Trash,
   UserRound,
+  BarChart3,
+  CalendarDays, // 新增图标
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
@@ -54,10 +56,11 @@ import { ExamType, ExamTypeGroup } from "@/types/exams";
 import { deleteUserAccount } from "@/app/actions/user";
 import { Badge } from "../ui/badge";
 import { SchoolYearSettings } from "@/types/school-year";
-import { BarChart3 } from "lucide-react";
 import { updateSchoolYearSettings } from "@/app/actions/school-year";
 import { toast } from "sonner";
 import { Switch } from "../ui/switch";
+import { Input } from "../ui/input"; // 新增 Input 组件
+import { Label } from "../ui/label"; // 新增 Label 组件
 
 interface SettingsDialogProps {
   children: React.ReactNode;
@@ -70,9 +73,10 @@ export default function SettingsDialog({
 }: SettingsDialogProps) {
   const defaultSettings: SchoolYearSettings = {
     enableStatistics: false,
+    // 兼容可能存在的默认值
   };
 
-  const [settings, setSettings] = useState<SchoolYearSettings>(
+  const [settings, setSettings] = useState<SchoolYearSettings & { term_start_date?: string; total_weeks?: number }>(
     initialSettings || defaultSettings,
   );
 
@@ -98,14 +102,16 @@ export default function SettingsDialog({
 
   console.log(settings);
 
+  // 修改了类型声明以支持字符串和数字的更新
   async function handleSettingChange(
-    key: keyof SchoolYearSettings,
-    value: boolean,
+    key: string,
+    value: boolean | string | number,
   ) {
     const newSettings = { ...settings, [key]: value };
-    setSettings(newSettings);
+    setSettings(newSettings as any);
     try {
-      await updateSchoolYearSettings(newSettings);
+      await updateSchoolYearSettings(newSettings as any);
+      // 可选：静默保存不打扰用户，或者加上提示
     } catch (error) {
       console.error("Failed to update settings:", error);
       toast.error(t("common.error"));
@@ -115,12 +121,12 @@ export default function SettingsDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>{t("settings")}</DialogTitle>
         </DialogHeader>
-        <Tabs defaultValue="general" className="h-[400px] w-full">
-          <TabsList className="w-full">
+        <Tabs defaultValue="general" className="h-[450px] w-full overflow-y-auto overflow-x-hidden p-1">
+          <TabsList className="w-full mb-4">
             <TabsTrigger className="w-1/3" value="general">
               <span className="flex items-center">
                 <Settings className="mr-1 h-4 w-4" /> {t("settings.general")}
@@ -138,8 +144,9 @@ export default function SettingsDialog({
               </span>
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="general">
-            <div className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-[1rem] py-2 text-neutral-700 transition-all duration-200 ease-in-out dark:text-neutral-300">
+
+          <TabsContent value="general" className="space-y-2">
+            <div className="flex w-full items-center justify-between rounded-[1rem] py-2 text-neutral-700 transition-all duration-200 ease-in-out dark:text-neutral-300">
               <div className="flex items-center">
                 <Icon className="mr-2">
                   <Sun className="h-5 w-5 dark:hidden" />
@@ -168,7 +175,8 @@ export default function SettingsDialog({
                 </SelectContent>
               </Select>
             </div>
-            <div className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-[1rem] py-2 text-neutral-700 transition-all duration-200 ease-in-out dark:text-neutral-300">
+
+            <div className="flex w-full items-center justify-between rounded-[1rem] py-2 text-neutral-700 transition-all duration-200 ease-in-out dark:text-neutral-300">
               <div className="flex items-center">
                 <Icon className="mr-2">
                   <Languages className="h-5 w-5" />
@@ -193,7 +201,8 @@ export default function SettingsDialog({
                 </SelectContent>
               </Select>
             </div>
-            <div className="mb-2 flex w-full cursor-pointer items-center justify-between rounded-[1rem] py-2 text-neutral-700 transition-all duration-200 ease-in-out dark:text-neutral-300">
+
+            <div className="flex w-full items-center justify-between rounded-[1rem] py-2 text-neutral-700 transition-all duration-200 ease-in-out dark:text-neutral-300">
               <div className="flex items-center">
                 <Icon className="mr-2">
                   <BarChart3 className="h-5 w-5" />
@@ -215,6 +224,48 @@ export default function SettingsDialog({
                 }
               />
             </div>
+
+            {/* 新增的教学周历配置区域 */}
+            <div className="mt-4 flex w-full flex-col rounded-xl border border-neutral-200 bg-neutral-50/50 p-4 dark:border-neutral-800 dark:bg-neutral-900/50">
+              <div className="mb-4 flex items-center text-neutral-700 dark:text-neutral-300">
+                <Icon className="mr-2">
+                  <CalendarDays className="h-5 w-5" />
+                </Icon>
+                <div className="flex flex-col">
+                  <span className="font-medium">教学周历配置</span>
+                  <span className="text-xs text-muted-foreground">
+                    设置开学日期与总周数，系统将自动推算当前教学周次
+                  </span>
+                </div>
+              </div>
+              
+              <div className="space-y-4 pl-9">
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="term_start_date" className="text-xs font-semibold text-neutral-500">开学首周星期一</Label>
+                  <Input
+                    id="term_start_date"
+                    type="date"
+                    className="h-9"
+                    value={settings.term_start_date || ""}
+                    onChange={(e) => handleSettingChange("term_start_date", e.target.value)}
+                  />
+                </div>
+                
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="total_weeks" className="text-xs font-semibold text-neutral-500">学期总周数 (默认 18)</Label>
+                  <Input
+                    id="total_weeks"
+                    type="number"
+                    min={1}
+                    max={40}
+                    className="h-9"
+                    value={settings.total_weeks || 18}
+                    onChange={(e) => handleSettingChange("total_weeks", Number(e.target.value))}
+                  />
+                </div>
+              </div>
+            </div>
+
           </TabsContent>
           <TabsContent value="examTypes">
             <ExamSettingsContent
@@ -292,7 +343,7 @@ export default function SettingsDialog({
             </SettingsItem>
           </TabsContent>
         </Tabs>
-        <DialogFooter className="flex w-full items-center justify-between">
+        <DialogFooter className="flex w-full items-center justify-between border-t pt-4 mt-2">
           <p className="text-sm text-neutral-500">
             Studentapp by Kevin Shek
           </p>
